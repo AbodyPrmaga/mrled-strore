@@ -27,14 +27,14 @@
         }
 
         .icon {
-            width: 150px;
-            height: 150px;
+            width: clamp(60px, 12vw, 150px);
+            height: auto;
         }
 
         .section-title {
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 6vw, 2.5rem);
             font-weight: 900;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
 
         .card {
@@ -52,32 +52,81 @@
             height: 220px;
             background: #e5e5e5;
         }
+
+        .whatsapp-btn{
+            position:fixed;
+            bottom:20px;
+            right:20px;
+            width:60px;
+            height:60px;
+            background:#25D366;
+            color:#fff;
+            border-radius:50%;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-decoration:none;
+            font-size:32px;
+            z-index:9999;
+            box-shadow:0 4px 12px rgba(0,0,0,.25);
+            transition:.3s;
+     }
+
+    .whatsapp-btn:hover{
+        width:230px;
+        border-radius:50px;
+    }
+
+    .whatsapp-text{
+        white-space:nowrap;
+        max-width:0;
+        overflow:hidden;
+        transition:.3s;
+        font-size:16px;
+        margin-right:10px;
+        font-weight:600;
+    }
+
+    .whatsapp-btn:hover .whatsapp-text{
+        max-width:180px;
+    }
     </style>
 </head>
 
 <body>
 
+        <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/201020493855"
+       class="whatsapp-btn"
+       target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span class="whatsapp-text">ازاي اقدر اساعدك؟</span>
+    </a>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+
     <!-- NAVBAR -->
     <header class="bg-white sticky top-0 z-50 shadow-sm">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="h-20 flex items-center justify-between relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="h-16 sm:h-20 flex items-center justify-between gap-4">
 
                 <!-- زر السلة (الشمال) -->
-                <div class="flex items-center">
-                    <a href="{% url 'cart' %}" class="flex items-center gap-2 font-semibold">
-                        🛒 <span>السلة</span>
+                <div class="flex items-center shrink-0">
+                    <a href="{% url 'cart' %}" class="flex items-center gap-1 sm:gap-2 font-semibold text-sm sm:text-base">
+                        🛒 <span class="hidden sm:inline">السلة</span>
                     </a>
                 </div>
 
                 <!-- المنتصف (النافيجيشن) -->
-                <nav class="hidden lg:flex items-center gap-10 font-semibold">
+                <nav class="hidden md:flex items-center gap-4 lg:gap-10 font-semibold text-sm lg:text-base">
                     <a href="{%url 'home'%}">الرئيسية</a>
                     <a href="https://wa.me/201020493855" target="_blank">تواصل معنا</a>
                     <a href="{%url 'products'%}">تسوق</a>
                 </nav>
 
                 <!-- اليمين (الأيقونة) -->
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 shrink-0">
                     <img class="icon" src="{% static 'images/icon.png' %}" alt="icon">
                 </div>
 
@@ -98,24 +147,24 @@
         <div class="absolute top-20 left-20 w-72 h-72 bg-orange-500/20 blur-3xl rounded-full"></div>
         <div class="absolute bottom-10 right-10 w-80 h-80 bg-white/10 blur-3xl rounded-full"></div>
 
-        <div class="relative h-[650px] max-w-7xl mx-auto px-6 flex items-center">
+        <div class="relative h-[500px] sm:h-[650px] max-w-7xl mx-auto px-4 sm:px-6 flex items-center">
 
             <div class="text-white max-w-2xl">
 
-                <h1 class="text-9xl font-black mb-6 tracking-wider">
+                <h1 class="text-6xl sm:text-8xl lg:text-9xl font-black mb-4 sm:mb-6 tracking-wider">
                     MR.LED
                 </h1>
 
-                <p class="text-4xl text-zinc-300 mb-10">
-                    خلي عرفتك عالم تاني
+                <p class="text-2xl sm:text-3xl lg:text-4xl text-zinc-300 mb-6 sm:mb-10">
+                    خلي غرفتك عالم تاني !
                 </p>
 
-                <a href="/store/products/" class="bg-[var(--orange)] px-8 py-4 rounded-full font-bold cursor-pointer
-                text-white
+                <a href="/store/products/" class="bg-[var(--orange)] px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold
+                text-white text-sm sm:text-base
                 hover:opacity-90 hover:scale-105
                 active:scale-95
                 transition-all duration-300
-                shadow-lg hover:shadow-xl">
+                shadow-lg hover:shadow-xl inline-block">
                     تصفح منتجاتنا
                 </a>
 
@@ -126,14 +175,14 @@
     </section>
 
     <!-- ABOUT -->
-    <section class="bg-white py-24" id="about">
-        <div class="max-w-5xl mx-auto text-center px-6">
+    <section class="bg-white py-16 sm:py-24" id="about">
+        <div class="max-w-5xl mx-auto text-center px-4 sm:px-6">
 
             <h2 class="section-title">
                 من نحن
             </h2>
 
-            <p class="text-lg text-zinc-600 leading-loose">
+            <p class="text-base sm:text-lg text-zinc-600 leading-loose">
                 صفحه لبيع الليد والنيون بالتجزىه
                 MrLED هي علامة تجارية للإضاءة النيون تقوم بتحويل الغرف إلى مساحات سينمائية مستوحاة من أسلوب الألعاب
                 (Gaming)، باستخدام لوحات حائط LED وتصاميم مخصصة.
@@ -143,38 +192,37 @@
     </section>
 
     <!-- OFFICE SECTION -->
-    <section class="py-24">
+    <section class="py-16 sm:py-24">
 
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
 
-            <!-- تعديل هنا -->
-            <div class="flex justify-between items-center mb-6">
+            <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
                 <h2 class="section-title mb-0">
                     من منتجاتنا
                 </h2>
 
                 <a href="/store/products/"
-                    class="bg-[var(--orange)] text-white px-6 py-3 rounded-full font-bold hover:opacity-90 transition">
+                    class="bg-[var(--orange)] text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-bold hover:opacity-90 transition text-sm sm:text-base">
                     تصفح الكل
                 </a>
             </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
 
                 {% for product in latest_products %}
 
                 <a href="{% url 'product_detail' product.id %}" class="card block">
 
-                    <div class="h-[220px] bg-gray-200 overflow-hidden">
+                    <div class="h-[200px] sm:h-[220px] bg-gray-200 overflow-hidden">
                         <img src="{{ product.image.url }}" class="w-full h-full object-cover">
                     </div>
 
-                    <div class="p-6">
-                        <h3 class="font-bold text-xl mb-2">
+                    <div class="p-4 sm:p-6">
+                        <h3 class="font-bold text-lg sm:text-xl mb-2">
                             {{ product.name }}
                         </h3>
 
-                        <p class="text-[var(--orange)] font-black">
+                        <p class="text-[var(--orange)] font-black text-base sm:text-lg">
                             {{ product.price }} ج.م
                         </p>
                     </div>
@@ -188,55 +236,53 @@
 
     </section>
 
-    <!-- FAQ SECTION (جديد) -->
-    <section class="py-24 bg-white">
+    <!-- FAQ SECTION -->
+    <section class="py-16 sm:py-24 bg-white">
 
-        <div class="max-w-5xl mx-auto px-6">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
 
             <h2 class="section-title text-center">
                 الأسئلة الشائعة
             </h2>
 
-            <div class="space-y-6">
+            <div class="space-y-5 sm:space-y-6">
 
-                <div class="p-6 rounded-2xl" style="background-color: #ff7a002e;">
-                    <h3 class="font-bold text-xl mb-2">ما هو عدد سنين الضمان علي المنتج</h3>
-                    <p class="text-zinc-600">عدد سنين الضمان علي المنتج هو 12 شهر</p>
+                <div class="p-4 sm:p-6 rounded-2xl" style="background-color: #ff7a002e;">
+                    <h3 class="font-bold text-lg sm:text-xl mb-2">ما هو عدد سنين الضمان علي المنتج</h3>
+                    <p class="text-zinc-600 text-sm sm:text-base">عدد سنين الضمان علي المنتج هو 12 شهر</p>
                 </div>
 
-                <div class="p-6 rounded-2xl" style="background-color: #ff7a002e;">
-                    <h3 class="font-bold text-xl mb-2">ما هي مدة الشحن</h3>
-                    <p class="text-zinc-600">خلال 4 أيام عمل</p>
+                <div class="p-4 sm:p-6 rounded-2xl" style="background-color: #ff7a002e;">
+                    <h3 class="font-bold text-lg sm:text-xl mb-2">ما هي مدة الشحن</h3>
+                    <p class="text-zinc-600 text-sm sm:text-base">خلال 4 أيام عمل</p>
                 </div>
 
-                <div class="p-6 rounded-2xl" style="background-color: #ff7a002e;">
-                    <h3 class="font-bold text-xl mb-2">كيف يتم التواصل مع الدعم الفني</h3>
-                    <p class="text-zinc-600">يمكنك التواصل مع الدعم الفني عن طريق الواتساب</p>
+                <div class="p-4 sm:p-6 rounded-2xl" style="background-color: #ff7a002e;">
+                    <h3 class="font-bold text-lg sm:text-xl mb-2">كيف يتم التواصل مع الدعم الفني</h3>
+                    <p class="text-zinc-600 text-sm sm:text-base">يمكنك التواصل مع الدعم الفني عن طريق الواتساب</p>
                 </div>
             </div>
-
-        </div>
 
         </div>
 
     </section>
 
     <!-- CTA -->
-    <section class="py-24">
+    <section class="py-16 sm:py-24">
 
-        <div class="max-w-6xl mx-auto px-6">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
 
-            <div class="rounded-[40px] bg-[var(--orange)] text-white text-center p-16">
+            <div class="rounded-[30px] sm:rounded-[40px] bg-[var(--orange)] text-white text-center p-8 sm:p-16">
 
-                <h2 class="text-5xl font-black mb-6">
+                <h2 class="text-3xl sm:text-5xl font-black mb-4 sm:mb-6">
                     جاهز تحوّل غرفتك لعالم سينمائي؟
                 </h2>
 
-                <p class="text-xl opacity-90 mb-8">
+                <p class="text-base sm:text-xl opacity-90 mb-6 sm:mb-8">
                     إضاءة LED ونيون بتصميمات عصرية تخلي مساحتك تعكس أسلوبك الخاص.
                 </p>
 
-                <a href="{%url 'products'%}" class="bg-white text-black px-10 py-4 rounded-full font-bold">
+                <a href="{%url 'products'%}" class="bg-white text-black px-8 sm:px-10 py-3 sm:py-4 rounded-full font-bold inline-block text-sm sm:text-base">
                     ابدأ التسوق
                 </a>
 
@@ -249,21 +295,21 @@
     <!-- FOOTER -->
     <footer class="bg-white border-t">
 
-        <div class="max-w-7xl mx-auto px-6 py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-20">
 
             <div class="text-center">
 
-                <div class="flex justify-center items-center gap-3 mb-8">
+                <div class="flex justify-center items-center gap-3 mb-6 sm:mb-8">
                     <img class="icon" src="{% static 'images/icon.png' %}" alt="icon">
                 </div>
 
-                <div class="flex flex-wrap justify-center gap-8 mb-10 font-medium">
+                <div class="flex flex-wrap justify-center gap-4 sm:gap-8 mb-8 sm:mb-10 font-medium text-sm sm:text-base">
                     <a href="{%url 'home'%}">الرئيسية</a>
                     <a href="{%url 'products'%}">تسوق</a>
                     <a href="https://wa.me/201020493855" target="_blank">تواصل معنا</a>
                 </div>
 
-                <p class="text-zinc-500">
+                <p class="text-zinc-500 text-xs sm:text-sm">
                     Powered By <a style="color: #FF7A00;" href="https://www.facebook.com/DevWare25"
                         target="_blank">DevWare Agency</a>
                 </p>

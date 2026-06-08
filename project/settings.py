@@ -1,16 +1,14 @@
 from pathlib import Path
-from dotenv import load_dotenv
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-load_dotenv(BASE_DIR / ".env")
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = "django-insecure-p5+^__w-$#t^)5*%-yl^94wdg8t205vc^nbv#x3(eniol-qogf"
 
-DEBUG = os.environ.get("DEBUG","False")
+DEBUG = False
 
-ALLOWED_HOSTS = [".fly.dev"]
+ALLOWED_HOSTS = ["*"]
 
 
 INSTALLED_APPS = [
@@ -79,12 +77,12 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://mrled-store.fly.dev",
+    "https://mrledst0re.pythonanywhere.com/",
 ]
 
-CREATE_SUPERUSER = os.getenv("CREATE_SUPERUSER", "0") == "1"
-TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
-TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
+CREATE_SUPERUSER = "1"
+TELEGRAM_BOT_TOKEN = "8615238678:AAE3_ptVLW8zVSMCHqvAc4iY02EjgC0R3UE"
+TELEGRAM_CHAT_ID = "8948689095"
 
 LANGUAGE_CODE = 'en-us'
 
@@ -101,7 +99,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_ROOT = MEDIA_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

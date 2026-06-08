@@ -4,6 +4,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="{% static 'images/icon.png' %}">
+
     <title>السلة</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,67 +24,118 @@
         }
 
         .icon {
-            width: 80px;
-            height: 80px;
+            width: clamp(50px, 10vw, 80px);
+            height: auto;
         }
     </style>
 </head>
 
 <body>
+
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/201020493855"
+   class="whatsapp-btn"
+   target="_blank">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-text">ازاي اقدر اساعدك؟</span>
+</a>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+.whatsapp-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:60px;
+    height:60px;
+    background:#25D366;
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-size:32px;
+    z-index:9999;
+    box-shadow:0 4px 12px rgba(0,0,0,.25);
+    transition:.3s;
+}
+
+.whatsapp-btn:hover{
+    width:230px;
+    border-radius:50px;
+}
+
+.whatsapp-text{
+    white-space:nowrap;
+    max-width:0;
+    overflow:hidden;
+    transition:.3s;
+    font-size:16px;
+    margin-right:10px;
+    font-weight:600;
+}
+
+.whatsapp-btn:hover .whatsapp-text{
+    max-width:180px;
+}
+</style>
+
     <header class="bg-white sticky top-0 z-50 shadow-sm">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="h-20 flex items-center justify-between relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="h-16 sm:h-20 flex items-center justify-between gap-4">
 
                 <!-- زر السلة (الشمال) -->
-                <div class="flex items-center">
-                    <a href="{% url 'cart' %}" class="flex items-center gap-2 font-semibold">
-                        🛒 <span>السلة</span>
+                <div class="flex items-center shrink-0">
+                    <a href="{% url 'cart' %}" class="flex items-center gap-1 sm:gap-2 font-semibold text-sm sm:text-base">
+                        🛒 <span class="hidden sm:inline">السلة</span>
                     </a>
                 </div>
 
                 <!-- المنتصف (النافيجيشن) -->
-                <nav class="hidden lg:flex items-center gap-10 font-semibold">
+                <nav class="hidden md:flex items-center gap-4 lg:gap-10 font-semibold text-sm lg:text-base">
                     <a href="{%url 'home'%}">الرئيسية</a>
                     <a href="https://wa.me/201020493855" target="_blank">تواصل معنا</a>
                     <a href="{%url 'products'%}">تسوق</a>
                 </nav>
 
                 <!-- اليمين (الأيقونة) -->
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 shrink-0">
                     <img class="icon" src="{% static 'images/icon.png' %}" alt="icon">
                 </div>
 
             </div>
         </div>
     </header>
-    <div class="max-w-5xl mx-auto p-6">
+    <div class="max-w-5xl mx-auto p-4 sm:p-6">
 
-        <h1 class="text-3xl font-black mb-6">🛒 السلة</h1>
+        <h1 class="text-2xl sm:text-3xl font-black mb-4 sm:mb-6">🛒 السلة</h1>
 
         {% if products %}
 
         <div class="space-y-4">
 
             {% for p in products %}
-            <div class="bg-white rounded-2xl shadow p-4 flex items-center justify-between">
+            <div class="bg-white rounded-2xl shadow p-4 flex flex-wrap items-center justify-between gap-3">
 
                 <!-- المنتج -->
-                <div>
-                    <h2 class="font-bold text-lg">{{ p.name }}</h2>
-                    <p class="text-gray-500">السعر: {{ p.price }} ج.م</p>
-                    <p class="text-gray-500">الكمية: {{ p.qty }}</p>
+                <div class="flex-1 min-w-[150px]">
+                    <h2 class="font-bold text-base sm:text-lg">{{ p.name }}</h2>
+                    <p class="text-gray-500 text-sm">السعر: {{ p.price }} ج.م</p>
+                    <p class="text-gray-500 text-sm">الكمية: {{ p.qty }}</p>
                 </div>
 
                 <!-- الإجمالي -->
-                <div class="text-center">
-                    <p class="font-bold text-[var(--orange)] text-lg">
+                <div class="text-center shrink-0">
+                    <p class="font-bold text-[var(--orange)] text-base sm:text-lg">
                         {{ p.total_price }} ج.م
                     </p>
                 </div>
 
                 <!-- حذف -->
                 <a href="{% url 'remove_from_cart' p.id %}"
-                    class="bg-red-500 text-white px-4 py-2 rounded-full text-sm">
+                    class="bg-red-500 text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm shrink-0">
                     حذف
                 </a>
 
@@ -91,22 +145,15 @@
         </div>
 
         <!-- الإجمالي -->
-        <div class="mt-6 bg-white p-4 rounded-2xl shadow flex justify-between items-center">
-
-            <h2 class="text-xl font-bold">
-                الإجمالي الكلي
-            </h2>
-
-            <span class="text-2xl font-black text-[var(--orange)]">
-                {{ total }} ج.م
-            </span>
-
+        <div class="mt-6 bg-white p-4 rounded-2xl shadow flex justify-between items-center flex-wrap gap-3">
+            <h2 class="text-lg sm:text-xl font-bold">الإجمالي الكلي</h2>
+            <span class="text-xl sm:text-2xl font-black text-[var(--orange)]">{{ total }} ج.م</span>
         </div>
 
         <!-- زر الدفع -->
         <div class="mt-6">
             <a href="{% url 'checkout' %}"
-                class="block text-center bg-[var(--orange)] text-white py-3 rounded-full font-bold">
+                class="block text-center bg-[var(--orange)] text-white py-3 rounded-full font-bold text-sm sm:text-base">
                 إتمام الطلب
             </a>
         </div>
@@ -114,7 +161,7 @@
         {% else %}
 
         <div class="bg-white p-6 rounded-2xl text-center">
-            <p class="text-gray-500 text-lg">السلة فارغة</p>
+            <p class="text-gray-500 text-base sm:text-lg">السلة فارغة</p>
         </div>
 
         {% endif %}

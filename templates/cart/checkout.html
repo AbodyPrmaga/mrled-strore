@@ -4,6 +4,9 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="{% static 'images/icon.png' %}">
+
     <title>Checkout</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,33 +24,82 @@
         }
 
         .icon {
-            width: 150px;
-            height: 150px;
+            width: clamp(60px, 12vw, 150px);
+            height: auto;
         }
     </style>
 </head>
 
 <body>
+<!-- WhatsApp Floating Button -->
+<a href="https://wa.me/201020493855"
+   class="whatsapp-btn"
+   target="_blank">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-text">ازاي اقدر اساعدك؟</span>
+</a>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+.whatsapp-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:60px;
+    height:60px;
+    background:#25D366;
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-size:32px;
+    z-index:9999;
+    box-shadow:0 4px 12px rgba(0,0,0,.25);
+    transition:.3s;
+}
+
+.whatsapp-btn:hover{
+    width:230px;
+    border-radius:50px;
+}
+
+.whatsapp-text{
+    white-space:nowrap;
+    max-width:0;
+    overflow:hidden;
+    transition:.3s;
+    font-size:16px;
+    margin-right:10px;
+    font-weight:600;
+}
+
+.whatsapp-btn:hover .whatsapp-text{
+    max-width:180px;
+}
+</style>
     <header class="bg-white sticky top-0 z-50 shadow-sm">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="h-20 flex items-center justify-between relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="h-16 sm:h-20 flex items-center justify-between gap-4">
 
                 <!-- زر السلة (الشمال) -->
-                <div class="flex items-center">
-                    <a href="{% url 'cart' %}" class="flex items-center gap-2 font-semibold">
-                        🛒 <span>السلة</span>
+                <div class="flex items-center shrink-0">
+                    <a href="{% url 'cart' %}" class="flex items-center gap-1 sm:gap-2 font-semibold text-sm sm:text-base">
+                        🛒 <span class="hidden sm:inline">السلة</span>
                     </a>
                 </div>
 
                 <!-- المنتصف (النافيجيشن) -->
-                <nav class="hidden lg:flex items-center gap-10 font-semibold">
+                <nav class="hidden md:flex items-center gap-4 lg:gap-10 font-semibold text-sm lg:text-base">
                     <a href="{%url 'home'%}">الرئيسية</a>
                     <a href="https://wa.me/201020493855" target="_blank">تواصل معنا</a>
                     <a href="{%url 'products'%}">تسوق</a>
                 </nav>
 
                 <!-- اليمين (الأيقونة) -->
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 shrink-0">
                     <img class="icon" src="{% static 'images/icon.png' %}" alt="icon">
                 </div>
 
@@ -55,88 +107,76 @@
         </div>
     </header>
 
-    <div class="max-w-5xl mx-auto p-6">
+    <div class="max-w-5xl mx-auto p-4 sm:p-6">
 
-        <h1 class="text-3xl font-black mb-6">💳 إتمام الطلب</h1>
+        <h1 class="text-2xl sm:text-3xl font-black mb-4 sm:mb-6">💳 إتمام الطلب</h1>
 
-        <form method="POST" class="space-y-6 bg-white p-6 rounded-2xl shadow">
+        <form method="POST" class="space-y-5 sm:space-y-6 bg-white p-5 sm:p-6 rounded-2xl shadow">
             {% csrf_token %}
 
             <!-- NAME -->
             <div>
-                <label class="font-bold">اسمك بالكامل</label>
-                <input type="text" name="name" required class="w-full p-3 border rounded-xl mt-2">
+                <label class="font-bold text-sm sm:text-base">اسمك بالكامل</label>
+                <input type="text" name="name" required class="w-full p-2.5 sm:p-3 border rounded-xl mt-2 text-sm sm:text-base">
             </div>
 
             <!-- PHONE 1 -->
             <div>
-                <label class="font-bold">رقم هاتف أساسي</label>
-                <input type="text" name="phone" required class="w-full p-3 border rounded-xl mt-2">
+                <label class="font-bold text-sm sm:text-base">رقم هاتف أساسي</label>
+                <input type="text" name="phone" required class="w-full p-2.5 sm:p-3 border rounded-xl mt-2 text-sm sm:text-base">
             </div>
 
             <!-- PHONE 2 -->
             <div>
-                <label class="font-bold">رقم هاتف بديل</label>
-                <input type="text" name="phone2" class="w-full p-3 border rounded-xl mt-2">
+                <label class="font-bold text-sm sm:text-base">رقم هاتف بديل</label>
+                <input type="text" name="phone2" class="w-full p-2.5 sm:p-3 border rounded-xl mt-2 text-sm sm:text-base">
             </div>
 
             <!-- CITY -->
             <div>
-                <label class="font-bold">المدينة</label>
-                <input type="text" name="city" value="المنيا" class="w-full p-3 border rounded-xl mt-2">
+                <label class="font-bold text-sm sm:text-base">المدينة</label>
+                <input type="text" name="city" value="المنيا" class="w-full p-2.5 sm:p-3 border rounded-xl mt-2 text-sm sm:text-base">
             </div>
 
             <!-- ADDRESS -->
             <div>
-                <label class="font-bold">العنوان بالتفصيل</label>
-                <textarea name="address" required class="w-full p-3 border rounded-xl mt-2"></textarea>
+                <label class="font-bold text-sm sm:text-base">العنوان بالتفصيل</label>
+                <textarea name="address" required class="w-full p-2.5 sm:p-3 border rounded-xl mt-2 text-sm sm:text-base"></textarea>
             </div>
 
             <!-- SHIPPING -->
-            <div class="bg-gray-100 p-4 rounded-xl flex justify-between">
-                <span class="font-bold">تكلفة الشحن</span>
-                <span class="text-[var(--orange)] font-black">{{shipping_cost}} ج.م</span>
+            <div class="bg-gray-100 p-3 sm:p-4 rounded-xl flex justify-between flex-wrap gap-2">
+                <span class="font-bold text-sm sm:text-base">تكلفة الشحن</span>
+                <span class="text-[var(--orange)] font-black text-sm sm:text-base">{{shipping_cost}} ج.م</span>
             </div>
 
             <!-- PAYMENT METHOD -->
             <div>
-                <label class="font-bold mb-2 block">اختر وسيلة الدفع</label>
-
-                <select name="payment_method" class="w-full p-3 border rounded-xl">
+                <label class="font-bold mb-2 block text-sm sm:text-base">اختر وسيلة الدفع</label>
+                <select name="payment_method" class="w-full p-2.5 sm:p-3 border rounded-xl text-sm sm:text-base">
                     <option value="cod">دفع عند الاستلام</option>
                 </select>
             </div>
 
             <!-- ORDER SUMMARY -->
-            <div class="bg-gray-100 p-4 rounded-xl">
-
-                <div class="flex justify-between mb-2">
+            <div class="bg-gray-100 p-3 sm:p-4 rounded-xl">
+                <div class="flex justify-between mb-2 text-sm sm:text-base">
                     <span>إجمالي المنتجات</span>
-                    <span class="font-bold">
-                        {{ subtotal }} ج.م
-                    </span>
+                    <span class="font-bold">{{ subtotal }} ج.م</span>
                 </div>
-
-                <div class="flex justify-between mb-2">
+                <div class="flex justify-between mb-2 text-sm sm:text-base">
                     <span>الشحن</span>
-                    <span class="font-bold">
-                        {{ shipping_cost }} ج.م
-                    </span>
+                    <span class="font-bold">{{ shipping_cost }} ج.م</span>
                 </div>
-
                 <hr class="my-2">
-
-                <div class="flex justify-between text-xl">
+                <div class="flex justify-between text-base sm:text-xl">
                     <span class="font-black">الإجمالي الكلي</span>
-                    <span class="text-[var(--orange)] font-black">
-                        {{ total }} ج.م
-                    </span>
+                    <span class="text-[var(--orange)] font-black">{{ total }} ج.م</span>
                 </div>
-
             </div>
 
             <!-- SUBMIT -->
-            <button type="submit" class="w-full bg-[var(--orange)] text-white py-3 rounded-full font-bold text-lg">
+            <button type="submit" class="w-full bg-[var(--orange)] text-white py-3 rounded-full font-bold text-base sm:text-lg">
                 تأكيد الطلب
             </button>
 

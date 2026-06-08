@@ -4,10 +4,12 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="{% static 'images/icon.png' %}">
+
     <title>المنتجات</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-
 
     <style>
         :root {
@@ -31,69 +33,117 @@
         }
 
         .icon {
-            width: 80px;
-            height: 80px;
+            width: clamp(50px, 10vw, 80px);
+            height: auto;
         }
     </style>
 </head>
 
 <body>
+    <!-- WhatsApp Floating Button -->
+<a href="https://wa.me/201020493855"
+   class="whatsapp-btn"
+   target="_blank">
+    <i class="fab fa-whatsapp"></i>
+    <span class="whatsapp-text">ازاي اقدر اساعدك؟</span>
+</a>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+.whatsapp-btn{
+    position:fixed;
+    bottom:20px;
+    right:20px;
+    width:60px;
+    height:60px;
+    background:#25D366;
+    color:#fff;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-decoration:none;
+    font-size:32px;
+    z-index:9999;
+    box-shadow:0 4px 12px rgba(0,0,0,.25);
+    transition:.3s;
+}
+
+.whatsapp-btn:hover{
+    width:230px;
+    border-radius:50px;
+}
+
+.whatsapp-text{
+    white-space:nowrap;
+    max-width:0;
+    overflow:hidden;
+    transition:.3s;
+    font-size:16px;
+    margin-right:10px;
+    font-weight:600;
+}
+
+.whatsapp-btn:hover .whatsapp-text{
+    max-width:180px;
+}
+</style>
 
     <header class="bg-white sticky top-0 z-50 shadow-sm">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="h-20 flex items-center justify-between relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="h-16 sm:h-20 flex items-center justify-between gap-4">
 
                 <!-- زر السلة (الشمال) -->
-                <div class="flex items-center">
-                    <a href="{% url 'cart' %}" class="flex items-center gap-2 font-semibold">
-                        🛒 <span>السلة</span>
+                <div class="flex items-center shrink-0">
+                    <a href="{% url 'cart' %}" class="flex items-center gap-1 sm:gap-2 font-semibold text-sm sm:text-base">
+                        🛒 <span class="hidden sm:inline">السلة</span>
                     </a>
                 </div>
 
                 <!-- المنتصف (النافيجيشن) -->
-                <nav class="hidden lg:flex items-center gap-10 font-semibold">
+                <nav class="hidden md:flex items-center gap-4 lg:gap-10 font-semibold text-sm lg:text-base">
                     <a href="{%url 'home'%}">الرئيسية</a>
                     <a href="https://wa.me/201020493855" target="_blank">تواصل معنا</a>
                     <a href="{%url 'products'%}">تسوق</a>
                 </nav>
 
                 <!-- اليمين (الأيقونة) -->
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2 shrink-0">
                     <img class="icon" src="{% static 'images/icon.png' %}" alt="icon">
                 </div>
 
             </div>
         </div>
     </header>
-    <div class="max-w-7xl mx-auto p-6">
+    <div class="max-w-7xl mx-auto p-4 sm:p-6">
 
         <!-- Search -->
-        <form method="GET" class="mb-10 flex gap-3">
-            <input name="q" placeholder="ابحث عن منتج..." class="w-full p-4 rounded-full border outline-none">
-
-            <button class="bg-[var(--orange)] text-white px-6 rounded-full">
+        <form method="GET" class="mb-8 sm:mb-10 flex gap-2 sm:gap-3">
+            <input name="q" placeholder="ابحث عن منتج..." class="w-full p-3 sm:p-4 rounded-full border outline-none text-sm sm:text-base">
+            <button class="bg-[var(--orange)] text-white px-5 sm:px-6 rounded-full text-sm sm:text-base shrink-0">
                 بحث
             </button>
         </form>
 
         <!-- Products -->
-        <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
 
             {% for product in products %}
             <div class="card">
 
-                <img src="{{ product.image.url }}" class="h-56 w-full object-cover">
+                <img src="{{ product.image.url }}" class="h-48 sm:h-56 w-full object-cover">
 
-                <div class="p-4">
+                <div class="p-3 sm:p-4">
 
-                    <h2 class="font-bold text-lg mb-2">{{ product.name }}</h2>
+                    <h2 class="font-bold text-base sm:text-lg mb-2">{{ product.name }}</h2>
 
-                    <p class="text-[var(--orange)] font-bold mb-3">
+                    <p class="text-[var(--orange)] font-bold mb-3 text-sm sm:text-base">
                         {{ product.price }} ج.م
                     </p>
 
                     <a href="{% url 'product_detail' product.id %}"
-                        class="block text-center bg-[var(--orange)] text-white py-2 rounded-full">
+                        class="block text-center bg-[var(--orange)] text-white py-2 rounded-full text-sm sm:text-base">
                         اشتري الآن
                     </a>
 
