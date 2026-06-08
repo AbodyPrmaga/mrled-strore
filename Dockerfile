@@ -18,7 +18,8 @@ COPY . /code
 
 ENV SECRET_KEY "kkeBbzxjf54PuyCzPNgOJMuOKVrlMmzRF0vdb6duRgm5BPcg8v"
 RUN python manage.py collectstatic --noinput || true
-
+RUN python manage.py migrate --noinput || true
 EXPOSE 8000
+
 
 CMD ["python","manage.py","runserver","0.0.0.0:8000"]
