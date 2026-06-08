@@ -1,0 +1,112 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ product.name }}</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --orange: #FF7A00;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f5f5f5;
+        }
+
+        .icon {
+            width: 80px;
+            height: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="bg-white sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="h-20 flex items-center justify-between relative">
+
+                <!-- زر السلة (الشمال) -->
+                <div class="flex items-center">
+                    <a href="{% url 'cart' %}" class="flex items-center gap-2 font-semibold">
+                        🛒 <span>السلة</span>
+                    </a>
+                </div>
+
+                <!-- المنتصف (النافيجيشن) -->
+                <nav class="hidden lg:flex items-center gap-10 font-semibold">
+                    <a href="{%url 'home'%}">الرئيسية</a>
+                    <a href="https://wa.me/201020493855" target="_blank">تواصل معنا</a>
+                    <a href="{%url 'products'%}">تسوق</a>
+                </nav>
+
+                <!-- اليمين (الأيقونة) -->
+                <div class="flex items-center gap-3">
+                    <img class="icon" src="{% static 'images/icon.png' %}" alt="icon">
+                </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="max-w-7xl mx-auto p-6 grid md:grid-cols-2 gap-10">
+
+        <!-- IMAGE -->
+        <div>
+            <img src="{{ product.image.url }}" class="w-full rounded-2xl shadow-lg">
+        </div>
+
+        <!-- INFO -->
+        <div class="bg-white p-6 rounded-2xl">
+
+            <h1 class="text-3xl font-black mb-4">{{ product.name }}</h1>
+
+            <p class="text-2xl text-[var(--orange)] font-bold mb-4">
+                {{ product.price }} ج.م
+            </p>
+
+            <p class="text-gray-600 mb-6 leading-loose">
+                {{ product.description }}
+            </p>
+
+            <!-- 🛒 FORM ADD TO CART -->
+            <form method="POST" action="{% url 'add_to_cart' product.id %}" class="space-y-4">
+
+                {% csrf_token %}
+
+                <!-- quantity selector -->
+                <div>
+                    <label class="block mb-2 font-bold">الكمية</label>
+
+                    <input type="number" name="quantity" value="1" min="1" class="w-full p-3 border rounded-xl">
+                </div>
+
+                <!-- add to cart -->
+                <button type="submit" class="w-full bg-[var(--orange)] text-white px-6 py-3 rounded-full font-bold">
+                    إضافة إلى السلة 🛒
+                </button>
+
+            </form>
+
+            <!-- go cart -->
+            <a href="{% url 'cart' %}"
+                class="block text-center border border-gray-300 text-gray-700 px-6 py-3 rounded-full mt-4">
+                الذهاب إلى السلة
+            </a>
+
+            <p class="text-sm text-gray-500 mt-4">
+                يمكنك تعديل الكمية قبل الإضافة
+            </p>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>المنتجات</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+
+    <style>
+        :root {
+            --orange: #FF7A00;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f5f5f5;
+        }
+
+        .card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: .3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon {
+            width: 80px;
+            height: 80px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="bg-white sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="h-20 flex items-center justify-between relative">
+
+                <!-- زر السلة (الشمال) -->
+                <div class="flex items-center">
+                    <a href="{% url 'cart' %}" class="flex items-center gap-2 font-semibold">
+                        🛒 <span>السلة</span>
+                    </a>
+                </div>
+
+                <!-- المنتصف (النافيجيشن) -->
+                <nav class="hidden lg:flex items-center gap-10 font-semibold">
+                    <a href="{%url 'home'%}">الرئيسية</a>
+                    <a href="https://wa.me/201020493855" target="_blank">تواصل معنا</a>
+                    <a href="{%url 'products'%}">تسوق</a>
+                </nav>
+
+                <!-- اليمين (الأيقونة) -->
+                <div class="flex items-center gap-3">
+                    <img class="icon" src="{% static 'images/icon.png' %}" alt="icon">
+                </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="max-w-7xl mx-auto p-6">
+
+        <!-- Search -->
+        <form method="GET" class="mb-10 flex gap-3">
+            <input name="q" placeholder="ابحث عن منتج..." class="w-full p-4 rounded-full border outline-none">
+
+            <button class="bg-[var(--orange)] text-white px-6 rounded-full">
+                بحث
+            </button>
+        </form>
+
+        <!-- Products -->
+        <div class="grid md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+            {% for product in products %}
+            <div class="card">
+
+                <img src="{{ product.image.url }}" class="h-56 w-full object-cover">
+
+                <div class="p-4">
+
+                    <h2 class="font-bold text-lg mb-2">{{ product.name }}</h2>
+
+                    <p class="text-[var(--orange)] font-bold mb-3">
+                        {{ product.price }} ج.م
+                    </p>
+
+                    <a href="{% url 'product_detail' product.id %}"
+                        class="block text-center bg-[var(--orange)] text-white py-2 rounded-full">
+                        اشتري الآن
+                    </a>
+
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

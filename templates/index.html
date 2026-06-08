@@ -1,0 +1,279 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="{% static 'images/icon.png' %}">
+    <title>Mr.LED | الرئيسية</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --black: #111111;
+            --orange: #FF7A00;
+            --orange-light: #FFA63D;
+            --white: #FFFFFF;
+            --gray: #F5F5F5;
+        }
+
+        body {
+            background: var(--gray);
+            color: var(--black);
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .icon {
+            width: 150px;
+            height: 150px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: .3s;
+        }
+
+        .card:hover {
+            transform: translateY(-6px);
+        }
+
+        .image-placeholder {
+            height: 220px;
+            background: #e5e5e5;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <header class="bg-white sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="h-20 flex items-center justify-between relative">
+
+                <!-- زر السلة (الشمال) -->
+                <div class="flex items-center">
+                    <a href="{% url 'cart' %}" class="flex items-center gap-2 font-semibold">
+                        🛒 <span>السلة</span>
+                    </a>
+                </div>
+
+                <!-- المنتصف (النافيجيشن) -->
+                <nav class="hidden lg:flex items-center gap-10 font-semibold">
+                    <a href="{%url 'home'%}">الرئيسية</a>
+                    <a href="https://wa.me/201020493855" target="_blank">تواصل معنا</a>
+                    <a href="{%url 'products'%}">تسوق</a>
+                </nav>
+
+                <!-- اليمين (الأيقونة) -->
+                <div class="flex items-center gap-3">
+                    <img class="icon" src="{% static 'images/icon.png' %}" alt="icon">
+                </div>
+
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="relative overflow-hidden">
+
+        <video autoplay muted loop playsinline
+            class="absolute top-0 left-0 w-full h-full object-cover scale-110 blur-sm">
+            <source src="https://www.pexels.com/download/video/19014504/" type="video/mp4">
+        </video>
+
+        <div class="absolute inset-0 bg-black/60"></div>
+
+        <div class="absolute top-20 left-20 w-72 h-72 bg-orange-500/20 blur-3xl rounded-full"></div>
+        <div class="absolute bottom-10 right-10 w-80 h-80 bg-white/10 blur-3xl rounded-full"></div>
+
+        <div class="relative h-[650px] max-w-7xl mx-auto px-6 flex items-center">
+
+            <div class="text-white max-w-2xl">
+
+                <h1 class="text-9xl font-black mb-6 tracking-wider">
+                    MR.LED
+                </h1>
+
+                <p class="text-4xl text-zinc-300 mb-10">
+                    خلي عرفتك عالم تاني
+                </p>
+
+                <a href="/store/products/" class="bg-[var(--orange)] px-8 py-4 rounded-full font-bold cursor-pointer
+                text-white
+                hover:opacity-90 hover:scale-105
+                active:scale-95
+                transition-all duration-300
+                shadow-lg hover:shadow-xl">
+                    تصفح منتجاتنا
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ABOUT -->
+    <section class="bg-white py-24" id="about">
+        <div class="max-w-5xl mx-auto text-center px-6">
+
+            <h2 class="section-title">
+                من نحن
+            </h2>
+
+            <p class="text-lg text-zinc-600 leading-loose">
+                صفحه لبيع الليد والنيون بالتجزىه
+                MrLED هي علامة تجارية للإضاءة النيون تقوم بتحويل الغرف إلى مساحات سينمائية مستوحاة من أسلوب الألعاب
+                (Gaming)، باستخدام لوحات حائط LED وتصاميم مخصصة.
+            </p>
+
+        </div>
+    </section>
+
+    <!-- OFFICE SECTION -->
+    <section class="py-24">
+
+        <div class="max-w-7xl mx-auto px-6">
+
+            <!-- تعديل هنا -->
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="section-title mb-0">
+                    من منتجاتنا
+                </h2>
+
+                <a href="/store/products/"
+                    class="bg-[var(--orange)] text-white px-6 py-3 rounded-full font-bold hover:opacity-90 transition">
+                    تصفح الكل
+                </a>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                {% for product in latest_products %}
+
+                <a href="{% url 'product_detail' product.id %}" class="card block">
+
+                    <div class="h-[220px] bg-gray-200 overflow-hidden">
+                        <img src="{{ product.image.url }}" class="w-full h-full object-cover">
+                    </div>
+
+                    <div class="p-6">
+                        <h3 class="font-bold text-xl mb-2">
+                            {{ product.name }}
+                        </h3>
+
+                        <p class="text-[var(--orange)] font-black">
+                            {{ product.price }} ج.م
+                        </p>
+                    </div>
+
+                </a>
+
+                {% endfor %}
+
+            </div>
+        </div>
+
+    </section>
+
+    <!-- FAQ SECTION (جديد) -->
+    <section class="py-24 bg-white">
+
+        <div class="max-w-5xl mx-auto px-6">
+
+            <h2 class="section-title text-center">
+                الأسئلة الشائعة
+            </h2>
+
+            <div class="space-y-6">
+
+                <div class="p-6 rounded-2xl" style="background-color: #ff7a002e;">
+                    <h3 class="font-bold text-xl mb-2">ما هو عدد سنين الضمان علي المنتج</h3>
+                    <p class="text-zinc-600">عدد سنين الضمان علي المنتج هو 12 شهر</p>
+                </div>
+
+                <div class="p-6 rounded-2xl" style="background-color: #ff7a002e;">
+                    <h3 class="font-bold text-xl mb-2">ما هي مدة الشحن</h3>
+                    <p class="text-zinc-600">خلال 4 أيام عمل</p>
+                </div>
+
+                <div class="p-6 rounded-2xl" style="background-color: #ff7a002e;">
+                    <h3 class="font-bold text-xl mb-2">كيف يتم التواصل مع الدعم الفني</h3>
+                    <p class="text-zinc-600">يمكنك التواصل مع الدعم الفني عن طريق الواتساب</p>
+                </div>
+            </div>
+
+        </div>
+
+        </div>
+
+    </section>
+
+    <!-- CTA -->
+    <section class="py-24">
+
+        <div class="max-w-6xl mx-auto px-6">
+
+            <div class="rounded-[40px] bg-[var(--orange)] text-white text-center p-16">
+
+                <h2 class="text-5xl font-black mb-6">
+                    جاهز تحوّل غرفتك لعالم سينمائي؟
+                </h2>
+
+                <p class="text-xl opacity-90 mb-8">
+                    إضاءة LED ونيون بتصميمات عصرية تخلي مساحتك تعكس أسلوبك الخاص.
+                </p>
+
+                <a href="{%url 'products'%}" class="bg-white text-black px-10 py-4 rounded-full font-bold">
+                    ابدأ التسوق
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t">
+
+        <div class="max-w-7xl mx-auto px-6 py-20">
+
+            <div class="text-center">
+
+                <div class="flex justify-center items-center gap-3 mb-8">
+                    <img class="icon" src="{% static 'images/icon.png' %}" alt="icon">
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-8 mb-10 font-medium">
+                    <a href="{%url 'home'%}">الرئيسية</a>
+                    <a href="{%url 'products'%}">تسوق</a>
+                    <a href="https://wa.me/201020493855" target="_blank">تواصل معنا</a>
+                </div>
+
+                <p class="text-zinc-500">
+                    Powered By <a style="color: #FF7A00;" href="https://www.facebook.com/DevWare25"
+                        target="_blank">DevWare Agency</a>
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>

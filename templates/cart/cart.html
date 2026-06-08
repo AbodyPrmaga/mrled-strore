@@ -1,0 +1,126 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <title>السلة</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --orange: #FF7A00;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: #f5f5f5;
+        }
+
+        .icon {
+            width: 80px;
+            height: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="bg-white sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="h-20 flex items-center justify-between relative">
+
+                <!-- زر السلة (الشمال) -->
+                <div class="flex items-center">
+                    <a href="{% url 'cart' %}" class="flex items-center gap-2 font-semibold">
+                        🛒 <span>السلة</span>
+                    </a>
+                </div>
+
+                <!-- المنتصف (النافيجيشن) -->
+                <nav class="hidden lg:flex items-center gap-10 font-semibold">
+                    <a href="{%url 'home'%}">الرئيسية</a>
+                    <a href="https://wa.me/201020493855" target="_blank">تواصل معنا</a>
+                    <a href="{%url 'products'%}">تسوق</a>
+                </nav>
+
+                <!-- اليمين (الأيقونة) -->
+                <div class="flex items-center gap-3">
+                    <img class="icon" src="{% static 'images/icon.png' %}" alt="icon">
+                </div>
+
+            </div>
+        </div>
+    </header>
+    <div class="max-w-5xl mx-auto p-6">
+
+        <h1 class="text-3xl font-black mb-6">🛒 السلة</h1>
+
+        {% if products %}
+
+        <div class="space-y-4">
+
+            {% for p in products %}
+            <div class="bg-white rounded-2xl shadow p-4 flex items-center justify-between">
+
+                <!-- المنتج -->
+                <div>
+                    <h2 class="font-bold text-lg">{{ p.name }}</h2>
+                    <p class="text-gray-500">السعر: {{ p.price }} ج.م</p>
+                    <p class="text-gray-500">الكمية: {{ p.qty }}</p>
+                </div>
+
+                <!-- الإجمالي -->
+                <div class="text-center">
+                    <p class="font-bold text-[var(--orange)] text-lg">
+                        {{ p.total_price }} ج.م
+                    </p>
+                </div>
+
+                <!-- حذف -->
+                <a href="{% url 'remove_from_cart' p.id %}"
+                    class="bg-red-500 text-white px-4 py-2 rounded-full text-sm">
+                    حذف
+                </a>
+
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <!-- الإجمالي -->
+        <div class="mt-6 bg-white p-4 rounded-2xl shadow flex justify-between items-center">
+
+            <h2 class="text-xl font-bold">
+                الإجمالي الكلي
+            </h2>
+
+            <span class="text-2xl font-black text-[var(--orange)]">
+                {{ total }} ج.م
+            </span>
+
+        </div>
+
+        <!-- زر الدفع -->
+        <div class="mt-6">
+            <a href="{% url 'checkout' %}"
+                class="block text-center bg-[var(--orange)] text-white py-3 rounded-full font-bold">
+                إتمام الطلب
+            </a>
+        </div>
+
+        {% else %}
+
+        <div class="bg-white p-6 rounded-2xl text-center">
+            <p class="text-gray-500 text-lg">السلة فارغة</p>
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</body>
+
+</html>
