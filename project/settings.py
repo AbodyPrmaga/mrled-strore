@@ -90,6 +90,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://mrled-store.fly.dev",
 ]
 
+CREATE_SUPERUSER = os.getenv("CREATE_SUPERUSER", "0") == "1"
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID")
 
