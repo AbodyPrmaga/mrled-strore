@@ -2,6 +2,9 @@ from django.contrib.auth import get_user_model
 
 def create_superuser():
     User = get_user_model()
+    
+    if User.objects.filter(username="admin_managing_Double88").exists():
+        return 
 
     if not User.objects.filter(username="admin").exists():
         User.objects.create_superuser(
